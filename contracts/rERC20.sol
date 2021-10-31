@@ -4,8 +4,14 @@ pragma solidity 0.8.7;
 import "@openzeppelin/contracts/access/AccessControl.sol";
 import "./onlyExtended.sol";
 
+interface IRarity {
+    function getApproved(uint) external view returns (address);
+    function ownerOf(uint) external view returns (address);
+    function isApprovedForAll(address owner, address operator) external view returns (bool);
+}
+
 abstract contract rERC20 is AccessControl, OnlyExtended {
-    address constant rarity = 0xce761D788DF608BD21bdd59d6f4B54b2e27F25Bb;
+    IRarity constant rm = IRarity(0xce761D788DF608BD21bdd59d6f4B54b2e27F25Bb);
     uint8 public constant decimals = 18;
 
     string public name;
